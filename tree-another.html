@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>tree</title>
+	<link rel="shortcut icon" href="img/dfd.ico">
+</head>
+<body>
+	<canvas id="mycanvas" width="500" height="400" style="border:1px solid #999;">
+		You browser don't support canvas!
+	</canvas>	
+	<script>
+
+		function createTree(ctx) {
+
+			ctx.beginPath();
+
+			ctx.moveTo(-25, -50);
+			ctx.lineTo(-10, -80);
+			ctx.lineTo(-20, -80);
+			ctx.lineTo(-5, -110);
+			ctx.lineTo(-15, -110);
+
+			ctx.lineTo(0, -140);    // 树的顶点
+
+			ctx.lineTo(15, -110);
+			ctx.lineTo(5, -110);
+			ctx.lineTo(20, -80);
+			ctx.lineTo(10, -80);
+			ctx.lineTo(25, -50);
+			ctx.lineTo(25, -50);
+
+			ctx.closePath();
+		}
+
+		//绘制一颗树
+		function createOnetree (ctx) {
+
+			var gcolor = ctx.createLinearGradient(-5,-50,5,50);
+			gcolor.addColorStop(0,"#000");
+			gcolor.addColorStop(0.4,"#666");
+			gcolor.addColorStop(1,"#000");
+
+			ctx.fillStyle = gcolor;
+			ctx.fillRect(-5,-50,10,50);
+
+			createTree(ctx);
+			ctx.fillStyle = "green";
+			ctx.fill();
+			ctx.stroke();
+
+			ctx.save();
+			ctx.transform(1,0,-0.5,1,0,0);
+			ctx.scale(1,0.5);
+			ctx.fillStyle = "rgba(0,0,0,0.2)";
+			ctx.fillRect(-5,-50,10,50);
+			createTree(ctx);
+			ctx.fill();
+			ctx.restore();
+		}
+
+		//画路
+		function createCurve(ctx) {
+			ctx.save();
+			ctx.translate(-10,280);
+			ctx.beginPath();
+
+			ctx.moveTo(0,0);
+			ctx.quadraticCurveTo(160,30,200,-100);
+			ctx.quadraticCurveTo(240,-270,530,-280);
+
+			ctx.lineWidth = 20;
+			ctx.strokeStyle = "#663300";
+			ctx.stroke();
+
+			ctx.closePath();
+			ctx.restore();
+		}
+
+		//canvas绘制
+		function draw() {
+			var canvas = document.querySelector("#mycanvas");
+			var ctx = canvas.getContext("2d");
+
+			ctx.save();
+			ctx.translate(130,200);
+			createOnetree(ctx);
+			ctx.restore();
+
+			ctx.save();
+			ctx.translate(300,350);
+			ctx.scale(1.8,1.8);
+			createOnetree(ctx);
+			ctx.restore();
+
+			ctx.save();
+			ctx.translate(380,290);
+			ctx.scale(1.3,1.3);
+			createOnetree(ctx);
+			ctx.restore();
+
+			createCurve(ctx);
+		}
+
+		window.addEventListener("load",draw,true);
+	</script>
+</body>
+</html>
