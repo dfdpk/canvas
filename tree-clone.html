@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>canvas -- stroke / fill </title>
+	<link rel="shortcut icon" href="img/dfd.ico">
+</head>
+<body>
+	<canvas id="mycanvas" width="500" height="400" style="border:1px solid #999;">
+		You browser don't support canvas!
+	</canvas>	
+	<script>
+		
+		//绘制树轮廓路径
+		function createTree(ctx) {
+			ctx.beginPath();
+
+			ctx.moveTo(-25, -50);
+			ctx.lineTo(-10, -80);
+			ctx.lineTo(-20, -80);
+			ctx.lineTo(-5, -110);
+			ctx.lineTo(-15, -110);
+
+			ctx.lineTo(0, -140);    // 树的顶点
+
+			ctx.lineTo(15, -110);
+			ctx.lineTo(5, -110);
+			ctx.lineTo(20, -80);
+			ctx.lineTo(10, -80);
+			ctx.lineTo(25, -50);
+
+			ctx.lineTo(25, -50);
+
+			ctx.closePath();    // 连接起点，闭合路径
+		}
+
+		//在canvas上画树的函数
+		function drawTrails() {
+			var canvas = document.querySelector("#mycanvas");
+			var ctx = canvas.getContext("2d");
+
+			//绘制小树
+			ctx.save();
+			ctx.translate(130, 200);
+			onlytree(ctx)
+			ctx.restore();
+
+			//复制大树
+			ctx.save();
+			ctx.translate(320,350);   //移到新坐标点
+			ctx.scale(1.8,1.8);      //放大1.8倍
+			onlytree(ctx);
+			ctx.restore();
+
+			createCurve(ctx);
+		}
+
+		//创建树对象绘制函数，以便重用
+		function onlytree(ctx) {
+			createTree(ctx);
+
+			//树的描边及填充
+			ctx.lineWidth = 4;
+			ctx.lineJoin = "round";
+			ctx.strokeStyle = "#663300";
+			ctx.stroke();
+
+			ctx.fillStyle = "#339900"
+			ctx.fill();
+
+			//树干渐变颜色
+			var gcolor = ctx.createLinearGradient(-5,-50,5,50);
+			gcolor.addColorStop(0,"#663300");
+			gcolor.addColorStop(0.4,"#996600");
+			gcolor.addColorStop(1,"#552200");
+			ctx.fillStyle = gcolor;
+			ctx.fillRect(-5,-50,10,50);
+
+			var canopyShadow = ctx.createLinearGradient(0, -50, 0, 0);
+			canopyShadow.addColorStop(0, "rgba(0,0,0,0.5)");
+			canopyShadow.addColorStop(0.2, "rgba(0,0,0,0.0)");
+			ctx.fillStyle = canopyShadow;
+			ctx.fillRect(-5,-50,10,50);
+
+			//树阴影
+			ctx.save();
+			ctx.transform(1,0,-0.5,1,0,0);
+			ctx.scale(1,0.6);
+			ctx.fillStyle = "rgba(0,0,0,0.2)";
+			ctx.fillRect(-5,-50,10,50);
+			createTree(ctx);
+			ctx.fill();
+			ctx.restore();
+
+		}
+
+        //画小路
+		function createCurve(ctx) {
+			ctx.save();
+			ctx.translate(-10,300);
+
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			ctx.quadraticCurveTo(170,-50,260,-190);
+
+			ctx.quadraticCurveTo(310,-270,520,-280);
+
+			ctx.strokeStyle = "#663300";
+			ctx.lineWidth = 20;
+			ctx.stroke();
+			ctx.restore();
+		}
+
+		window.addEventListener("load",drawTrails,true);
+	</script>
+</body>
+</html>
