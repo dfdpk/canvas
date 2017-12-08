@@ -1,5 +1,4 @@
 # canvas
-some demo
 
 tree -- https://github.com/dfdpk/canvas/blob/master/img/tree.png
 
