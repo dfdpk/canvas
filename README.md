@@ -8,5 +8,5 @@
 
 简单鼠标操作动画：
 
-![mousedown -- ](https://github.com/dfdpk/canvas/blob/master/img/sun.jpg)
+![mousedown -- ](https://github.com/dfdpk/canvas/blob/master/img/beautiful.jpg)
 
