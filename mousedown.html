@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>mousedown</title>
+	<link rel="shortcut icon" href="img/dfd.ico">
+	<style>
+		canvas { box-shadow:0 5px 40px 2px rgba(150,200,250,0.5); }
+	</style>
+</head>
+<body>
+	<canvas id="mycanvas" width="500" height="400">
+		You browser don't support canvas!
+	</canvas>	
+	<script>
+		var canvas = document.querySelector("#mycanvas");
+		var ctx = canvas.getContext("2d");
+		//太阳		
+		function arc() {
+			ctx.beginPath();
+			var gcolor = ctx.createLinearGradient(70,70,130,130);
+			gcolor.addColorStop(0,"rgba(255,128,0,0.6");
+			gcolor.addColorStop(1,"#f00");
+			ctx.fillStyle = gcolor;
+			ctx.arc(100,100,60,0,Math.PI*2,false);
+			ctx.fill();
+			ctx.closePath();
+		}
+		//文字
+		function text(color) {
+			ctx.beginPath();
+			var text = "大漠孤烟直 长河落日圆";
+			var rtext = null,i = 0,timer = null;
+			timer = setInterval(function() {
+				rtext = text.substring(0,i);
+				i++;
+				ctx.fillStyle = color;
+				ctx.font = "20px YouYuan";
+				ctx.fillText(rtext,250,50);
+
+				if(rtext.length == text.length) {
+					clearInterval(timer);
+				}
+			},100)	
+			ctx.closePath();
+		}
+		//山坡
+		function curve() {
+			ctx.beginPath();
+			ctx.moveTo(0,300);
+			ctx.quadraticCurveTo(100,250,200,300);
+			ctx.quadraticCurveTo(300,330,350,250);
+			ctx.quadraticCurveTo(430,100,500,250);
+			ctx.lineTo(500,400);
+			ctx.lineTo(0,400);
+			var gcolor = ctx.createLinearGradient(0,250,500,400);
+			gcolor.addColorStop(0,"rgba(255,128,0,0.6)");
+			gcolor.addColorStop(1,"rgba(0,0,0,0.8)");
+			ctx.fillStyle = gcolor;
+			ctx.fill();
+		}
+		//画布
+		function draw() {
+			ctx.save();
+			arc();
+			curve();
+			ctx.restore();
+		}
+		//鼠标事件
+		function mousedown() {
+			ctx.save();
+			text("#336699");
+			ctx.restore();
+		}
+
+		window.addEventListener("load",draw,true);
+		window.addEventListener("mousedown",mousedown,true);
+
+
+	</script>
+</body>
+</html>
