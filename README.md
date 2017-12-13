@@ -1,6 +1,6 @@
 恬静的小路：
 
-![tree --- ]( https://github.com/dfdpk/canvas/blob/master/img/tree.png)
+![tree -- ]( https://github.com/dfdpk/canvas/blob/master/img/tree.png)
 
 钟表模拟动画：
 
@@ -8,4 +8,5 @@
 
 简单鼠标操作动画：
 
+![mousedown -- ](https://github.com/dfdpk/canvas/blob/master/img/mousedown.jpg)
 
